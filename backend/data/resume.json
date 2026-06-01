@@ -1,0 +1,75 @@
+{
+  "personal": {
+    "name": "Harshita Maheshwari",
+    "title": "Full-Stack Designer & Creative Technologist",
+    "headline": "Hi, I am Harshita Maheshwari, welcome to my portfolio",
+    "subHeadline": "I design and develop high-end digital experiences where aesthetics meet technical precision. Creating the future of web with obsidian voids and digital pulses.",
+    "yearsOfExperience": "05+",
+    "email": "harshita@example.com",
+    "github": "https://github.com",
+    "linkedin": "https://linkedin.com",
+    "dribbble": "https://dribbble.com"
+  },
+  "projects": [
+    {
+      "id": "neo-bank",
+      "title": "Neo-Bank Interface",
+      "category": "FINTECH PLATFORM",
+      "description": "A selection of meticulously crafted interfaces and technical architectures. High-performance fintech dashboard with custom charting, real-time analytics, and sleek neon aesthetics.",
+      "imageName": "neo_bank.png",
+      "link": "#"
+    },
+    {
+      "id": "elite-gear",
+      "title": "Elite Gear",
+      "category": "ECOMMERCE",
+      "description": "Fully immersive gaming gear marketplace featuring interactive 3D product previews, dynamic custom checkout, and premium micro-interactions.",
+      "imageName": "elite_gear.png",
+      "link": "#"
+    },
+    {
+      "id": "web3-protocol",
+      "title": "Web3 Protocol",
+      "category": "BLOCKCHAIN",
+      "description": "Decentralized liquidity pool analyzer and network node visualizer featuring real-time node map rendering, gas trackers, and sub-second updates.",
+      "imageName": "web3_protocol.png",
+      "link": "#"
+    },
+    {
+      "id": "visionary-living",
+      "title": "Visionary Living",
+      "category": "ARCHITECTURE / UI",
+      "description": "A high-end residential real estate portal utilizing large-scale imagery, glassmorphic layout elements, and smooth page transition animations.",
+      "imageName": "visionary_living.png",
+      "link": "#"
+    }
+  ],
+  "experience": [
+    {
+      "id": "exp-1",
+      "role": "Lead Frontend Architect & Creative Technologist",
+      "company": "CyberPulse Studios",
+      "period": "2023 - PRESENT",
+      "description": "Design and develop high-end web applications with Next.js/React. Standardized 'Neon-Noir' custom UI framework, achieving visual premium quality and reducing frontend render times by 35%. Direct cross-functional team of 6 engineers."
+    },
+    {
+      "id": "exp-2",
+      "role": "Senior UI/UX Engineer",
+      "company": "Obsidian Tech",
+      "period": "2021 - 2023",
+      "description": "Architected custom dashboards and high-speed charting features for a Web3 analytics suite. Collaborated closely with the product team to turn high-fidelity Figma mockups into reactive, pixel-perfect layouts."
+    },
+    {
+      "id": "exp-3",
+      "role": "Creative Developer",
+      "company": "Digital Alchemy",
+      "period": "2019 - 2021",
+      "description": "Built responsive marketing landing pages, interactive product finders, and custom 3D web visualizations using Three.js and CSS Grid/Flexbox layouts."
+    }
+  ],
+  "about": {
+    "philosophy": "I am a full-stack designer and creative technologist specializing in premium digital presence. My philosophy is rooted in \"Neon-Noir Minimalism\"—where quiet, sophisticated architecture meets high-energy digital pulses.",
+    "subPhilosophy": "With over 5 years of experience in product design and frontend engineering, I bridge the gap between creative vision and technical execution. I believe that every pixel should serve a purpose and every interaction should feel like magic.",
+    "skills": ["UI/UX Design", "3D Modelling", "Tailwind CSS", "Motion Graphics", "React/Next.js", "Node.js", "Express.js"]
+  }
+}
