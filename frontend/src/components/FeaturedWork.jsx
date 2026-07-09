@@ -78,8 +78,7 @@ export default function FeaturedWork({ projects }) {
               : 'card-wide-right';
 
             return (
-              <a 
-                href={project.link} 
+              <div 
                 key={project.id} 
                 className={`project-card ${gridClass}`}
                 style={{
@@ -96,36 +95,35 @@ export default function FeaturedWork({ projects }) {
                   transition: 'var(--transition-smooth)'
                 }}
               >
-                {/* Background Image */}
+                {/* Background/Top Image */}
                 <div style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
+                  position: 'relative',
                   width: '100%',
-                  height: '100%',
-                  zIndex: 1,
+                  flex: 1,
+                  minHeight: '250px',
+                  backgroundColor: '#0a0a0c', // Dark background behind contain image
                   overflow: 'hidden'
                 }}>
                   <img 
-                    src={`/${project.imageName}`} 
+                    src={project.imageName && project.imageName.startsWith('/uploads') ? `http://localhost:5001${project.imageName}` : `/${project.imageName}`} 
                     alt={project.title}
                     style={{
                       width: '100%',
                       height: '100%',
-                      objectFit: 'cover',
+                      objectFit: 'contain',
                       transition: 'transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1)'
                     }}
                     className="project-image"
                   />
-                  {/* Subtle vignette gradient overlay */}
                   <div style={{
                     position: 'absolute',
                     top: 0,
                     left: 0,
                     width: '100%',
                     height: '100%',
-                    background: 'linear-gradient(to top, rgba(7, 7, 9, 0.9) 0%, rgba(7, 7, 9, 0.3) 50%, rgba(0, 0, 0, 0) 100%)',
-                    zIndex: 2
+                    background: 'linear-gradient(to top, rgba(10, 10, 12, 1) 0%, rgba(10, 10, 12, 0) 20%)',
+                    zIndex: 2,
+                    pointerEvents: 'none'
                   }}></div>
                 </div>
 
@@ -133,36 +131,69 @@ export default function FeaturedWork({ projects }) {
                 <div style={{
                   position: 'relative',
                   zIndex: 3,
-                  padding: '2.5rem',
+                  padding: '1.5rem',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'flex-start',
-                  gap: '0.5rem'
+                  gap: '1rem',
+                  backgroundColor: '#0a0a0c'
                 }}>
-                  <span style={{
-                    fontSize: '0.65rem',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.12em',
-                    color: '#fff',
-                    backgroundColor: 'rgba(139, 92, 246, 0.4)',
-                    padding: '0.25rem 0.6rem',
-                    borderRadius: '4px',
-                    fontWeight: 600,
-                    backdropFilter: 'blur(4px)',
-                    border: '1px solid rgba(139, 92, 246, 0.2)'
-                  }}>
-                    {project.category}
-                  </span>
                   <h3 style={{
-                    fontSize: '1.8rem',
+                    fontSize: '1.5rem',
                     fontWeight: '700',
                     color: '#ffffff',
-                    marginTop: '0.5rem'
+                    margin: 0
                   }}>
                     {project.title}
                   </h3>
+                  
+                  <p style={{
+                    fontSize: '0.9rem',
+                    color: 'var(--text-secondary)',
+                    lineHeight: '1.5',
+                    margin: 0
+                  }}>
+                    {project.description}
+                  </p>
+
+                  <div style={{
+                    display: 'flex',
+                    gap: '1rem',
+                    marginTop: 'auto',
+                    paddingTop: '1rem'
+                  }}>
+                    {project.link && project.link !== '#' && (
+                      <a href={project.link} target="_blank" rel="noreferrer" style={{
+                        padding: '0.5rem 1rem',
+                        backgroundColor: 'rgba(255,255,255,0.1)',
+                        color: '#fff',
+                        borderRadius: '4px',
+                        fontSize: '0.8rem',
+                        fontWeight: '600',
+                        textDecoration: 'none',
+                        border: '1px solid rgba(255,255,255,0.2)',
+                        transition: 'all 0.2s'
+                      }} className="btn-hover">
+                        GitHub
+                      </a>
+                    )}
+                    {project.liveLink && project.liveLink !== '#' && (
+                      <a href={project.liveLink} target="_blank" rel="noreferrer" style={{
+                        padding: '0.5rem 1rem',
+                        backgroundColor: 'var(--accent-cyan)',
+                        color: '#000',
+                        borderRadius: '4px',
+                        fontSize: '0.8rem',
+                        fontWeight: '600',
+                        textDecoration: 'none',
+                        transition: 'all 0.2s'
+                      }} className="btn-hover-solid">
+                        Live Demo
+                      </a>
+                    )}
+                  </div>
                 </div>
-              </a>
+              </div>
             );
           })}
         </div>

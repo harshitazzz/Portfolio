@@ -105,7 +105,7 @@ export default function Contact({ personal }) {
               </div>
               <div>
                 <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block' }}>Location</span>
-                <span style={{ color: '#fff', fontWeight: 500 }}>San Francisco Bay Area, CA</span>
+                <span style={{ color: '#fff', fontWeight: 500 }}>{personal?.location || "San Francisco Bay Area, CA"}</span>
               </div>
             </div>
           </div>

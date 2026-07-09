@@ -1,11 +1,17 @@
 import React from 'react';
 
 export default function Hero({ personal }) {
-  const { headline, subHeadline } = personal || {
+  const { headline, subHeadline, backgroundImage, avatarVideo } = personal || {
     headline: "Hi, I am Harshita Maheshwari, welcome to my portfolio",
     subHeadline:
       "I design and develop high-end digital experiences where aesthetics meet technical precision. Creating the future of web with obsidian voids and digital pulses."
   };
+
+  const bgImageUrl = backgroundImage && backgroundImage.startsWith('/uploads') ? `http://localhost:5001${backgroundImage}` : "url('/hero-bg.png')";
+  const videoUrl = avatarVideo && avatarVideo.startsWith('/uploads') ? `http://localhost:5001${avatarVideo}` : "/avatar_hoodie_girl.webm";
+
+  // If bgImageUrl is already a URL string from DB, we format it as CSS URL if it's not "url(...)"
+  const bgImageStyle = bgImageUrl.startsWith('url') ? bgImageUrl : `url('${bgImageUrl}')`;
 
   return (
     <section
@@ -24,11 +30,11 @@ export default function Hero({ personal }) {
         style={{
           position: 'absolute',
           inset: 0,
-          backgroundImage: "url('/hero-bg.png')",
+          backgroundImage: bgImageStyle,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          opacity: 0.35,
+          opacity: 0.45,
           filter: 'blur(4px)',
           transform: 'scale(1)',
           zIndex: 0
@@ -69,18 +75,7 @@ export default function Hero({ personal }) {
               letterSpacing: '-0.03em'
             }}
           >
-            Hi, I am{' '}
-            <span
-              style={{
-                background:
-                  'linear-gradient(135deg, #ffffff 60%, var(--accent-cyan) 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent'
-              }}
-            >
-              Harshita Maheshwari
-            </span>
-            , welcome to my portfolio
+            {headline || "Hi, I am Harshita Maheshwari, welcome to my portfolio"}
           </h1>
 
           <p
@@ -154,45 +149,27 @@ export default function Hero({ personal }) {
             }}
           >
             <video
-
+              key={videoUrl}
               autoPlay
-
               loop
-
               muted
-
               playsInline
-
               preload="auto"
-
               style={{
-
                 width: '140%',
-
                 height: '140%',
-
                 objectFit: 'contain',
-
                 position: 'absolute',
-
                 top: '50%',
-
                 left: '50%',
-
                 transform: 'translate(-50%, -50%) scale(1.35)',
-
                 display: 'block',
-
                 background: 'transparent',
-
                 transition: 'var(--transition-smooth)'
-
               }}
-
             >
-
-              <source src="/avatar_hoodie_girl.webm" type="video/webm" />
-
+              <source src={videoUrl} type="video/webm" />
+              <source src={videoUrl} type="video/mp4" />
             </video>
           </div>
         </div>

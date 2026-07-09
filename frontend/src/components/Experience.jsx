@@ -25,7 +25,8 @@ export default function Experience({ experience }) {
     }
   ];
 
-  const items = experience && experience.length > 0 ? experience : defaultExperience;
+  // Use passed experience if defined (even if empty), otherwise fallback to default
+  const items = experience !== undefined ? experience : defaultExperience;
 
   return (
     <section id="experience" style={{
@@ -48,17 +49,23 @@ export default function Experience({ experience }) {
           maxWidth: '850px',
           margin: '0 auto'
         }}>
-          {/* Vertical Track Line */}
-          <div className="timeline-line" style={{
-            position: 'absolute',
-            left: '20px',
-            top: '8px',
-            bottom: '24px',
-            width: '2px',
-            background: 'linear-gradient(to bottom, var(--accent-cyan) 0%, rgba(139, 92, 246, 0.5) 50%, rgba(255, 255, 255, 0.05) 100%)'
-          }}></div>
+          {items.length === 0 ? (
+            <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-secondary)' }}>
+              <h3 style={{ fontSize: '1.5rem', fontWeight: 400, letterSpacing: '0.05em' }}>Experience to be added soon...</h3>
+            </div>
+          ) : (
+            <>
+              {/* Vertical Track Line */}
+              <div className="timeline-line" style={{
+                position: 'absolute',
+                left: '20px',
+                top: '8px',
+                bottom: '24px',
+                width: '2px',
+                background: 'linear-gradient(to bottom, var(--accent-cyan) 0%, rgba(139, 92, 246, 0.5) 50%, rgba(255, 255, 255, 0.05) 100%)'
+              }}></div>
 
-          {items.map((exp, idx) => (
+              {items.map((exp, idx) => (
             <div 
               key={exp.id} 
               className="timeline-item"
@@ -146,6 +153,8 @@ export default function Experience({ experience }) {
               </div>
             </div>
           ))}
+          </>
+          )}
         </div>
       </div>
 

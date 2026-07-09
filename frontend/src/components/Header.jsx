@@ -53,10 +53,10 @@ export default function Header() {
           gap: '2.5rem'
         }} className="desktop-nav">
           <a href="#home" className="nav-link">Home</a>
-          <a href="#work" className="nav-link">Work</a>
-          <a href="#experience" className="nav-link">Experience</a>
           <a href="#about" className="nav-link">About</a>
-          <a href="#contact" className="nav-link">Contact</a>
+          <a href="#work" className="nav-link">Work</a>
+          <a href="#achievements" className="nav-link">Achievements</a>
+          <a href="#experience" className="nav-link">Experience</a>
         </nav>
 
         {/* CTA Button */}
@@ -79,7 +79,7 @@ export default function Header() {
           </a>
 
           {/* Mobile Menu Button */}
-          <button 
+          <button
             onClick={() => setIsOpen(!isOpen)}
             className="hamburger-btn"
             style={{
@@ -135,9 +135,10 @@ export default function Header() {
           borderTop: '1px solid rgba(255, 255, 255, 0.05)'
         }}>
           <a href="#home" onClick={() => setIsOpen(false)} style={{ fontSize: '1.25rem', color: '#fff', textDecoration: 'none' }}>Home</a>
-          <a href="#work" onClick={() => setIsOpen(false)} style={{ fontSize: '1.25rem', color: '#fff', textDecoration: 'none' }}>Work</a>
-          <a href="#experience" onClick={() => setIsOpen(false)} style={{ fontSize: '1.25rem', color: '#fff', textDecoration: 'none' }}>Experience</a>
           <a href="#about" onClick={() => setIsOpen(false)} style={{ fontSize: '1.25rem', color: '#fff', textDecoration: 'none' }}>About</a>
+          <a href="#work" onClick={() => setIsOpen(false)} style={{ fontSize: '1.25rem', color: '#fff', textDecoration: 'none' }}>Work</a>
+          <a href="#achievements" onClick={() => setIsOpen(false)} style={{ fontSize: '1.25rem', color: '#fff', textDecoration: 'none' }}>Achievements</a>
+          <a href="#experience" onClick={() => setIsOpen(false)} style={{ fontSize: '1.25rem', color: '#fff', textDecoration: 'none' }}>Experience</a>
           <a href="#contact" onClick={() => setIsOpen(false)} style={{ fontSize: '1.25rem', color: '#fff', textDecoration: 'none' }}>Contact</a>
         </div>
       )}
