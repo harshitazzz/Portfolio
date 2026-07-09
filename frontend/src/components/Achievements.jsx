@@ -1,6 +1,5 @@
 import React from 'react';
-
-const BACKEND_URL = 'http://localhost:5001';
+import BACKEND_URL from '../config';
 
 export default function Achievements({ achievements }) {
   const items = achievements || [];

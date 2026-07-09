@@ -9,6 +9,7 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Achievements from './components/Achievements';
 import Education from './components/Education';
+import BACKEND_URL from './config';
 
 // Admin Components
 import AdminLayout from './layouts/AdminLayout';
@@ -34,7 +35,7 @@ function Portfolio() {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:5001/api/resume');
+        const response = await fetch(`${BACKEND_URL}/api/resume`);
         if (!response.ok) {
           throw new Error('Failed to fetch data from server');
         }

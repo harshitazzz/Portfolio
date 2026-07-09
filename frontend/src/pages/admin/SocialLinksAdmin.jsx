@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
-const BACKEND_URL = 'http://localhost:5001';
+import BACKEND_URL from '../../config';
 
 export default function SocialLinksAdmin() {
   const [links, setLinks] = useState([]);

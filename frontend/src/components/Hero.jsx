@@ -1,4 +1,5 @@
 import React from 'react';
+import BACKEND_URL from '../config';
 
 export default function Hero({ personal }) {
   const { headline, subHeadline, backgroundImage, avatarVideo } = personal || {
@@ -7,8 +8,8 @@ export default function Hero({ personal }) {
       "I design and develop high-end digital experiences where aesthetics meet technical precision. Creating the future of web with obsidian voids and digital pulses."
   };
 
-  const bgImageUrl = backgroundImage && backgroundImage.startsWith('/uploads') ? `http://localhost:5001${backgroundImage}` : "url('/hero-bg.png')";
-  const videoUrl = avatarVideo && avatarVideo.startsWith('/uploads') ? `http://localhost:5001${avatarVideo}` : "/avatar_hoodie_girl.webm";
+  const bgImageUrl = backgroundImage && backgroundImage.startsWith('/uploads') ? `${BACKEND_URL}${backgroundImage}` : "url('/hero-bg.png')";
+  const videoUrl = avatarVideo && avatarVideo.startsWith('/uploads') ? `${BACKEND_URL}${avatarVideo}` : "/avatar_hoodie_girl.webm";
 
   // If bgImageUrl is already a URL string from DB, we format it as CSS URL if it's not "url(...)"
   const bgImageStyle = bgImageUrl.startsWith('url') ? bgImageUrl : `url('${bgImageUrl}')`;

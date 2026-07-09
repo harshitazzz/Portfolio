@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import BACKEND_URL from '../config';
 
 export default function Contact({ personal }) {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -20,7 +21,7 @@ export default function Contact({ personal }) {
     setStatus({ type: '', text: '' });
 
     try {
-      const response = await fetch('http://localhost:5001/api/contact', {
+      const response = await fetch(`${BACKEND_URL}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

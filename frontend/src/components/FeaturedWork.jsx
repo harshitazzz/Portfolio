@@ -1,4 +1,5 @@
 import React from 'react';
+import BACKEND_URL from '../config';
 
 export default function FeaturedWork({ projects }) {
   const defaultProjects = [
@@ -105,7 +106,7 @@ export default function FeaturedWork({ projects }) {
                   overflow: 'hidden'
                 }}>
                   <img 
-                    src={project.imageName && project.imageName.startsWith('/uploads') ? `http://localhost:5001${project.imageName}` : `/${project.imageName}`} 
+                    src={project.imageName && project.imageName.startsWith('/uploads') ? `${BACKEND_URL}${project.imageName}` : `/${project.imageName}`} 
                     alt={project.title}
                     style={{
                       width: '100%',

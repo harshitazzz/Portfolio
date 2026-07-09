@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-
-const BACKEND_URL = 'http://localhost:5001';
+import BACKEND_URL from '../../config';
 
 export default function AchievementsAdmin() {
   const [achievements, setAchievements] = useState([]);

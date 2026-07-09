@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import BACKEND_URL from '../../config';
 
 export default function ExperienceAdmin() {
   const [experiences, setExperiences] = useState([]);
@@ -18,7 +19,7 @@ export default function ExperienceAdmin() {
 
   const fetchExperiences = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5001/api/experience');
+      const { data } = await axios.get(`${BACKEND_URL}/api/experience`);
       setExperiences(data);
     } catch (error) {
       console.error('Failed to fetch experiences', error);
@@ -34,10 +35,10 @@ export default function ExperienceAdmin() {
 
     try {
       if (editingId) {
-        await axios.put(`http://localhost:5001/api/experience/${editingId}`, payload);
+        await axios.put(`${BACKEND_URL}/api/experience/${editingId}`, payload);
         alert('Experience updated successfully!');
       } else {
-        await axios.post('http://localhost:5001/api/experience', payload);
+        await axios.post(`${BACKEND_URL}/api/experience`, payload);
         alert('Experience added successfully!');
       }
       
@@ -61,7 +62,7 @@ export default function ExperienceAdmin() {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this experience?')) {
       try {
-        await axios.delete(`http://localhost:5001/api/experience/${id}`);
+        await axios.delete(`${BACKEND_URL}/api/experience/${id}`);
         fetchExperiences();
       } catch (error) {
         console.error('Failed to delete experience', error);

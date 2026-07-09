@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import BACKEND_URL from '../../config';
 
 export default function HeroAdmin() {
   const [loading, setLoading] = useState(true);
@@ -17,7 +18,7 @@ export default function HeroAdmin() {
 
   const fetchHero = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5001/api/hero');
+      const { data } = await axios.get(`${BACKEND_URL}/api/hero`);
       if (data) {
         setHeadline(data.headline || '');
         setSubHeadline(data.subHeadline || '');
@@ -45,7 +46,7 @@ export default function HeroAdmin() {
     }
 
     try {
-      await axios.post('http://localhost:5001/api/hero', formData, {
+      await axios.post(`${BACKEND_URL}/api/hero`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       alert('Hero updated successfully!');

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Plus, Edit2, Trash2, X } from 'lucide-react';
+import BACKEND_URL from '../../config';
 
 export default function ProjectsAdmin() {
   const [projects, setProjects] = useState([]);
@@ -23,7 +24,7 @@ export default function ProjectsAdmin() {
 
   const fetchProjects = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5001/api/projects');
+      const { data } = await axios.get(`${BACKEND_URL}/api/projects`);
       setProjects(data);
     } catch (error) {
       console.error('Failed to fetch projects', error);
@@ -59,7 +60,7 @@ export default function ProjectsAdmin() {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this project?')) {
       try {
-        await axios.delete(`http://localhost:5001/api/projects/${id}`);
+        await axios.delete(`${BACKEND_URL}/api/projects/${id}`);
         fetchProjects();
       } catch (error) {
         console.error('Failed to delete project', error);
@@ -83,7 +84,7 @@ export default function ProjectsAdmin() {
 
     try {
       if (currentProject) {
-        await axios.put(`http://localhost:5001/api/projects/${currentProject._id}`, formData, {
+        await axios.put(`${BACKEND_URL}/api/projects/${currentProject._id}`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
       } else {
@@ -91,7 +92,7 @@ export default function ProjectsAdmin() {
           alert('Image is required for new projects');
           return;
         }
-        await axios.post('http://localhost:5001/api/projects', formData, {
+        await axios.post(`${BACKEND_URL}/api/projects`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
       }
@@ -173,7 +174,7 @@ export default function ProjectsAdmin() {
               {projects.map((project) => (
                 <tr key={project._id} style={{ borderBottom: '1px solid #e5e7eb' }}>
                   <td style={{ padding: '0.75rem' }}>
-                    <img src={`http://localhost:5001${project.image}`} alt={project.title} style={{ width: '60px', height: '40px', objectFit: 'cover', borderRadius: '4px' }} />
+                    <img src={`${BACKEND_URL}${project.image}`} alt={project.title} style={{ width: '60px', height: '40px', objectFit: 'cover', borderRadius: '4px' }} />
                   </td>
                   <td style={{ padding: '0.75rem', fontWeight: '500' }}>{project.title}</td>
                   <td style={{ padding: '0.75rem' }}>

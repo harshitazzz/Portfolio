@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import BACKEND_URL from '../../config';
 
 export default function AboutAdmin() {
   const [loading, setLoading] = useState(true);
@@ -13,7 +14,7 @@ export default function AboutAdmin() {
 
   const fetchAbout = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5001/api/about');
+      const { data } = await axios.get(`${BACKEND_URL}/api/about`);
       if (data && data._id) {
         setHeadline(data.headline || '');
         setSubHeadline(data.subHeadline || '');
@@ -30,7 +31,7 @@ export default function AboutAdmin() {
     e.preventDefault();
     
     try {
-      await axios.post('http://localhost:5001/api/about', {
+      await axios.post(`${BACKEND_URL}/api/about`, {
         headline,
         subHeadline,
         techStack
