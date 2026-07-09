@@ -186,7 +186,10 @@ app.post('/api/contact', async (req, res) => {
   }
 });
 
-// Start Server
+// Start Server (local dev)
 app.listen(PORT, () => {
   console.log(`Backend server running on http://localhost:${PORT}`);
 });
+
+// Export for Vercel serverless
+module.exports = app;
