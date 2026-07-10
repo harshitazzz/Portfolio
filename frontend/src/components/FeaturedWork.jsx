@@ -107,10 +107,12 @@ export default function FeaturedWork({ projects }) {
                 }}>
                   <img 
                     src={
-                      project.image
-                        ? (project.image.startsWith('http') ? project.image : `${BACKEND_URL}${project.image}`)
-                        : `/${project.imageName}`
-                    }
+  project.imageName && project.imageName.startsWith('http')
+    ? project.imageName
+    : project.imageName && project.imageName.startsWith('/uploads')
+    ? `${BACKEND_URL}${project.imageName}`
+    : `/${project.imageName}`
+}
                     alt={project.title}
                     style={{
                       width: '100%',
