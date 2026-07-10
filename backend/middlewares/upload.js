@@ -1,25 +1,15 @@
 const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
 
-const uploadDir = path.join(__dirname, '../uploads');
-
-// Ensure uploads directory exists
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
-
-const storage = multer.diskStorage({
-  destination(req, file, cb) {
-    cb(null, uploadDir);
-  },
-  filename(req, file, cb) {
-    cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
-  },
-});
+// Store the uploaded file in memory (as a buffer) instead of writing to local
+// disk. Vercel's serverless functions have a read-only filesystem (except
+// /tmp, which isn't shared or persistent between invocations), so writing to
+// a local "uploads" folder does not work in production. The buffer is
+// uploaded to Cloudinary instead (see config/cloudinary.js).
+const storage = multer.memoryStorage();
 
 function checkFileType(file, cb) {
   const filetypes = /jpg|jpeg|png|gif|webp|pdf|webm|mp4/;
+  const path = require('path');
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
   const mimetype = filetypes.test(file.mimetype) || file.mimetype.startsWith('video/');
 
