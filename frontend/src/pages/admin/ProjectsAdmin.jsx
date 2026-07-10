@@ -174,7 +174,7 @@ export default function ProjectsAdmin() {
               {projects.map((project) => (
                 <tr key={project._id} style={{ borderBottom: '1px solid #e5e7eb' }}>
                   <td style={{ padding: '0.75rem' }}>
-                    <img src={`${BACKEND_URL}${project.image}`} alt={project.title} style={{ width: '60px', height: '40px', objectFit: 'cover', borderRadius: '4px' }} />
+                    <img src={project.image && project.image.startsWith('http') ? project.image : `${BACKEND_URL}${project.image}`} alt={project.title} style={{ width: '60px', height: '40px', objectFit: 'cover', borderRadius: '4px' }} />
                   </td>
                   <td style={{ padding: '0.75rem', fontWeight: '500' }}>{project.title}</td>
                   <td style={{ padding: '0.75rem' }}>
