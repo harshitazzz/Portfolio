@@ -1,6 +1,5 @@
 const Hero = require('../models/Hero');
-const fs = require('fs');
-const path = require('path');
+const { uploadBufferToCloudinary } = require('../config/cloudinary');
 
 // @desc    Get hero data
 // @route   GET /api/hero
@@ -20,40 +19,37 @@ const getHero = async (req, res) => {
 const updateHero = async (req, res) => {
   try {
     const { headline, subHeadline } = req.body;
-    
+
+    let avatarVideoUrl;
+    let backgroundImageUrl;
+
+    if (req.files) {
+      if (req.files.avatarVideo) {
+        const result = await uploadBufferToCloudinary(req.files.avatarVideo[0].buffer, 'hero');
+        avatarVideoUrl = result.secure_url;
+      }
+      if (req.files.backgroundImage) {
+        const result = await uploadBufferToCloudinary(req.files.backgroundImage[0].buffer, 'hero');
+        backgroundImageUrl = result.secure_url;
+      }
+    }
+
     let hero = await Hero.findOne();
 
     if (hero) {
-      // Update existing
       hero.headline = headline || hero.headline;
       hero.subHeadline = subHeadline || hero.subHeadline;
-
-      if (req.files) {
-        if (req.files.avatarVideo) {
-          if (hero.avatarVideo) {
-            const oldPath = path.join(__dirname, '..', hero.avatarVideo);
-            if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
-          }
-          hero.avatarVideo = `/uploads/${req.files.avatarVideo[0].filename}`;
-        }
-        if (req.files.backgroundImage) {
-          if (hero.backgroundImage) {
-            const oldPath = path.join(__dirname, '..', hero.backgroundImage);
-            if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
-          }
-          hero.backgroundImage = `/uploads/${req.files.backgroundImage[0].filename}`;
-        }
-      }
+      if (avatarVideoUrl) hero.avatarVideo = avatarVideoUrl;
+      if (backgroundImageUrl) hero.backgroundImage = backgroundImageUrl;
 
       const updatedHero = await hero.save();
       res.json(updatedHero);
     } else {
-      // Create new
       const newHero = new Hero({
         headline,
         subHeadline,
-        avatarVideo: req.files && req.files.avatarVideo ? `/uploads/${req.files.avatarVideo[0].filename}` : undefined,
-        backgroundImage: req.files && req.files.backgroundImage ? `/uploads/${req.files.backgroundImage[0].filename}` : undefined,
+        avatarVideo: avatarVideoUrl,
+        backgroundImage: backgroundImageUrl,
       });
 
       const createdHero = await newHero.save();
