@@ -1,6 +1,5 @@
 const Project = require('../models/Project');
-const fs = require('fs');
-const path = require('path');
+const { uploadBufferToCloudinary } = require('../config/cloudinary');
 
 // @desc    Get all projects
 // @route   GET /api/projects
@@ -30,13 +29,15 @@ const createProject = async (req, res) => {
       return res.status(400).json({ message: 'No image uploaded' });
     }
 
+    const result = await uploadBufferToCloudinary(req.file.buffer, 'projects');
+
     const project = new Project({
       title,
       description,
       techStack: techStackArray,
       githubLink,
       liveDemoLink,
-      image: `/uploads/${req.file.filename}`,
+      image: result.secure_url,
     });
 
     const createdProject = await project.save();
@@ -66,14 +67,8 @@ const updateProject = async (req, res) => {
       }
 
       if (req.file) {
-        // Delete old image if it exists
-        if (project.image) {
-          const oldImagePath = path.join(__dirname, '..', project.image);
-          if (fs.existsSync(oldImagePath)) {
-            fs.unlinkSync(oldImagePath);
-          }
-        }
-        project.image = `/uploads/${req.file.filename}`;
+        const result = await uploadBufferToCloudinary(req.file.buffer, 'projects');
+        project.image = result.secure_url;
       }
 
       const updatedProject = await project.save();
@@ -94,13 +89,6 @@ const deleteProject = async (req, res) => {
     const project = await Project.findById(req.params.id);
 
     if (project) {
-      // Delete image
-      if (project.image) {
-        const imagePath = path.join(__dirname, '..', project.image);
-        if (fs.existsSync(imagePath)) {
-          fs.unlinkSync(imagePath);
-        }
-      }
       await project.deleteOne();
       res.json({ message: 'Project removed' });
     } else {
