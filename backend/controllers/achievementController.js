@@ -1,6 +1,5 @@
 const Achievement = require('../models/Achievement');
-const fs = require('fs');
-const path = require('path');
+const { uploadBufferToCloudinary } = require('../config/cloudinary');
 
 // @desc    Get all achievements
 // @route   GET /api/achievements
@@ -20,7 +19,12 @@ const getAchievements = async (req, res) => {
 const createAchievement = async (req, res) => {
   try {
     const { title, description } = req.body;
-    const image = req.file ? `/uploads/${req.file.filename}` : undefined;
+    let image;
+
+    if (req.file) {
+      const result = await uploadBufferToCloudinary(req.file.buffer, 'achievements');
+      image = result.secure_url;
+    }
 
     const achievement = new Achievement({ title, description, image });
     const created = await achievement.save();
@@ -46,12 +50,8 @@ const updateAchievement = async (req, res) => {
     achievement.description = description || achievement.description;
 
     if (req.file) {
-      // Delete old image if exists
-      if (achievement.image) {
-        const oldPath = path.join(__dirname, '..', achievement.image);
-        if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
-      }
-      achievement.image = `/uploads/${req.file.filename}`;
+      const result = await uploadBufferToCloudinary(req.file.buffer, 'achievements');
+      achievement.image = result.secure_url;
     }
 
     const updated = await achievement.save();
@@ -70,12 +70,6 @@ const deleteAchievement = async (req, res) => {
 
     if (!achievement) {
       return res.status(404).json({ message: 'Achievement not found' });
-    }
-
-    // Delete image file if exists
-    if (achievement.image) {
-      const imgPath = path.join(__dirname, '..', achievement.image);
-      if (fs.existsSync(imgPath)) fs.unlinkSync(imgPath);
     }
 
     await achievement.deleteOne();
